@@ -1,0 +1,47 @@
+{
+	"build_systems":
+	[
+		{
+			"cmd": "make -j10",
+			"name": "Build progressbar-cpp",
+			"working_dir": "$project_path"
+		},
+		{
+			"cmd": "make -j10 clean",
+			"name": "Clean progressbar-cpp",
+			"working_dir": "$project_path"
+		}
+	],
+	"folders":
+	[
+		{
+			"name": "Includes",
+			"path": "include"
+		},
+		{
+			"name": "Source",
+			"path": "src"
+		},
+		{
+			"name": "External code",
+			"path": "ext"
+		},
+		{
+			"file_include_patterns":
+			[
+				"*Makefile*",
+				"*.yml",
+			],
+			"folder_exclude_patterns":
+			[
+				"*"
+			],
+			"name": "Build files",
+			"path": "."
+		}
+	],
+	"settings":
+	{
+		"tab_size": 2
+	}
+}

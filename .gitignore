@@ -1,0 +1,14 @@
+*
+!ext
+!ext/**
+!src
+!src/**
+!include
+!include/**
+!.git*
+!*.yml
+!*Makefile
+!*.sublime-project
+!.clang-format
+!*.md
+!LICENSE
