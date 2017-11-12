@@ -43,13 +43,11 @@ endif
 # TODO: update on release
 # PROGRESSBAR_CPP_VERSION := "$(patsubst v%,%,$(shell git describe --tags --abbrev=0))"
 PROGRESSBAR_CPP_VERSION := "0.1.0"
+PROGRESSBAR_VERSION := "$(shell git -C ext/progressbar log -1 --pretty=format:%h | grep -v ":")"
 
 OBJ := .o
 AR := ar
 ARCH := .a
-CMAKE := cmake
-NINJA := ninja
-CALIBRE_CONVERT := ebook-convert
 CXXAR := -O3 -fomit-frame-pointer -std=c++14 -pedantic -Wall -Wextra -pipe $(INCCXXAR) $(PIC)
 CCAR := -O3 -fomit-frame-pointer -std=c99 -pipe $(PIC)
 
@@ -57,4 +55,3 @@ OUTDIR := out/
 BLDDIR := out/build/
 OBJDIR := $(BLDDIR)obj/
 SRCDIR := src/
-ASSETDIR := assets/

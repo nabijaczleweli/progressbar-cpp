@@ -18,7 +18,7 @@ matrix:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.8
             - llvm-toolchain-precise-3.9
-    - env: CXX=g++-6 CC=gcc-6 DEPLOY=true DEPLOY_FILE="$TRAVIS_BUILD_DIR/../gen-epub-book-$TRAVIS_TAG"
+    - env: CXX=g++-6 CC=gcc-6
       addons:
         apt:
           packages:

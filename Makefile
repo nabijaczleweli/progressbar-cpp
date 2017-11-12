@@ -24,9 +24,10 @@ include configMakefile
 
 
 LDAR := $(PIC)
-VERAR := $(foreach l,PROGRESSBAR_CPP,-D$(l)_VERSION='$($(l)_VERSION)')
-INCAR := -Iinclude
+VERAR := $(foreach l,PROGRESSBAR_CPP PROGRESSBAR,-D$(l)_VERSION='$($(l)_VERSION)')
+INCAR := -Iinclude -isystemext/progressbar/include
 SOURCES := $(sort $(wildcard src/*.cpp src/**/*.cpp src/**/**/*.cpp src/**/**/**/*.cpp))
+PROGRESSBAR_SOURCES := $(sort $(wildcard ext/progressbar/lib/*.c ext/progressbar/lib/**/*.c ext/progressbar/lib/**/**/*.c ext/progressbar/lib/**/**/**/*.c))
 
 .PHONY : all clean static
 
@@ -38,10 +39,14 @@ clean :
 static : $(OUTDIR)libprogressbar-cpp$(ARCH)
 
 
-$(OUTDIR)libprogressbar-cpp$(ARCH) : $(subst $(SRCDIR),$(OBJDIR),$(subst .cpp,$(OBJ),$(SOURCES)))
+$(OUTDIR)libprogressbar-cpp$(ARCH) : $(subst $(SRCDIR),$(OBJDIR),$(subst .cpp,$(OBJ),$(SOURCES))) $(subst ext/progressbar/lib,$(BLDDIR)progressbar,$(subst .c,$(OBJ),$(PROGRESSBAR_SOURCES)))
 	$(AR) crs $@ $^
 
 
 $(OBJDIR)%$(OBJ) : $(SRCDIR)%.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXAR) $(INCAR) $(VERAR) -c -o$@ $^
+
+$(BLDDIR)progressbar/%$(OBJ) : ext/progressbar/lib/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CCAR) -Iext/progressbar/include/progressbar -c -o$@ $^
