@@ -4,9 +4,9 @@ A C++ wrapper for [an easy-to-use C library for displaying text progress bars](h
 ## How?
 
 ```cpp
-#include <progressbar.hpp>
+#include <progressbar_cpp/progressbar.hpp>
 
-progressbar::progressbar progress("Loading", 100);
+progressbar_cpp::progressbar progress("Loading", 100);
 for(int i=0; i < 100; i++) {
   // Do some stuff
   progressbar.inc();

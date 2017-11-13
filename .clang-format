@@ -18,5 +18,6 @@ IndentWidth                                    : 2
 TabWidth                                       : 2
 UseTab                                         : ForIndentation
 SpaceBeforeParens                              : Never
+FixNamespaceComments                           : false
 ...
 
