@@ -7,7 +7,7 @@ A C++ wrapper for [an easy-to-use C library for displaying text progress bars](h
 #include <progressbar_cpp/progressbar.hpp>
 
 progressbar_cpp::progressbar progress("Loading", 100);
-for(int i=0; i < 100; i++) {
+for(int i = 0; i < 100; ++i) {
   // Do some stuff
   progressbar.inc();
 }
