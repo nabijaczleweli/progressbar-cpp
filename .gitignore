@@ -5,6 +5,8 @@
 !src/**
 !include
 !include/**
+!examples
+!examples/**
 !.git*
 !*.yml
 !*Makefile

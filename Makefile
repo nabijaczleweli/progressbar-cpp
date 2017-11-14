@@ -23,20 +23,26 @@
 include configMakefile
 
 
-LDAR := $(PIC)
+LDAR := $(PIC) $(LNCXXAR)
 VERAR := $(foreach l,PROGRESSBAR_CPP PROGRESSBAR,-D$(l)_VERSION='$($(l)_VERSION)')
 INCAR := -Iinclude -isystemext/progressbar/include
 SOURCES := $(sort $(wildcard src/*.cpp src/**/*.cpp src/**/**/*.cpp src/**/**/**/*.cpp))
 PROGRESSBAR_SOURCES := $(sort $(wildcard ext/progressbar/lib/*.c ext/progressbar/lib/**/*.c ext/progressbar/lib/**/**/*.c ext/progressbar/lib/**/**/**/*.c))
+EXAMPLE_SOURCES := $(sort $(wildcard examples/*.cpp examples/**/*.cpp examples/**/**/*.cpp examples/**/**/**/*.cpp))
+PROGRESSBAR_EXAMPLE_SOURCES := $(sort $(wildcard ext/progressbar/test/*.c ext/progressbar/test/**/*.c ext/progressbar/test/**/**/*.c ext/progressbar/test/**/**/**/*.c))
 
-.PHONY : all clean static
+.PHONY : all clean static examples run-examples
 
-all : static
+all : static examples run-examples
 
 clean :
 	rm -rf $(OUTDIR)
 
+run-examples : $(patsubst %.cpp,$(OUTDIR)%$(EXE),$(EXAMPLE_SOURCES)) $(patsubst ext/progressbar/test/%.c,$(OUTDIR)examples/progressbar-%$(EXE),$(PROGRESSBAR_EXAMPLE_SOURCES))
+	$(foreach l,$^,$(l);)
+
 static : $(OUTDIR)libprogressbar-cpp$(ARCH)
+examples : static $(patsubst %.cpp,$(OUTDIR)%$(EXE),$(EXAMPLE_SOURCES)) $(patsubst ext/progressbar/test/%.c,$(OUTDIR)examples/progressbar-%$(EXE),$(PROGRESSBAR_EXAMPLE_SOURCES))
 
 
 $(OUTDIR)libprogressbar-cpp$(ARCH) : $(subst $(SRCDIR),$(OBJDIR),$(subst .cpp,$(OBJ),$(SOURCES))) $(subst ext/progressbar/lib,$(BLDDIR)progressbar,$(subst .c,$(OBJ),$(PROGRESSBAR_SOURCES)))
@@ -50,3 +56,11 @@ $(OBJDIR)%$(OBJ) : $(SRCDIR)%.cpp
 $(BLDDIR)progressbar/%$(OBJ) : ext/progressbar/lib/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CCAR) -Iext/progressbar/include/progressbar -c -o$@ $^
+
+$(OUTDIR)examples/%$(EXE) : examples/%.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXAR) $(INCAR) $(VERAR) -o$@ $^ $(LDAR) -L$(OUTDIR) -lprogressbar-cpp -lncurses
+
+$(OUTDIR)examples/progressbar-%$(EXE) : ext/progressbar/test/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CCAR) $(INCAR) -o$@ $^ -Iext/progressbar/include/progressbar $(LDAR) -L$(OUTDIR) -lprogressbar-cpp -lncurses

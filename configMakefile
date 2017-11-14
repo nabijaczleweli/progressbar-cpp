@@ -21,9 +21,11 @@
 
 
 ifeq "$(OS)" "Windows_NT"
+	EXE := .exe
 	PIC :=
 	ECHO := /usr/bin/echo
 else
+	EXE :=
 	PIC := -fPIC
 	ECHO := echo
 endif
@@ -52,6 +54,6 @@ CXXAR := -O3 -fomit-frame-pointer -std=c++14 -pedantic -Wall -Wextra -pipe $(INC
 CCAR := -O3 -fomit-frame-pointer -std=c99 -pipe $(PIC)
 
 OUTDIR := out/
-BLDDIR := out/build/
+BLDDIR := $(OUTDIR)build/
 OBJDIR := $(BLDDIR)obj/
 SRCDIR := src/
