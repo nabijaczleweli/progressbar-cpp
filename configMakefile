@@ -24,10 +24,12 @@ ifeq "$(OS)" "Windows_NT"
 	EXE := .exe
 	PIC :=
 	ECHO := /usr/bin/echo
+	CURSES ?= pdcurses
 else
 	EXE :=
 	PIC := -fPIC
 	ECHO := echo
+	CURSES ?= ncurses
 endif
 
 ifneq "$(ADDITIONAL_INCLUDE_DIR)" ""

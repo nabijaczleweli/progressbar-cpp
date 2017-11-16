@@ -12,12 +12,14 @@ install:
   -
   - bash -lc "pacman --needed --noconfirm -Sy pacman-mirrors"
   - bash -lc "pacman --noconfirm -Syyu"
-  - bash -lc "pacman --noconfirm -Su"
+  - bash -lc "pacman --noconfirm -Su mingw-w64-x86_64-ncurses"
+  -
+  - curl -SL "https://gist.github.com/nabijaczleweli/636d156c87bc227bb008c13c5f780195/raw/4ed2e79d1986a1fb8feb6e8d6c61ee581610d4bb/libpdcurses.a" -o "C:\msys64\mingw64\lib\libpdcurses.a"
 
 build: off
 build_script:
   - git submodule update --init --recursive
-  - make
+  - make CC=gcc
 
 test: off
 

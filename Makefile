@@ -59,8 +59,8 @@ $(BLDDIR)progressbar/%$(OBJ) : ext/progressbar/lib/%.c
 
 $(OUTDIR)examples/%$(EXE) : examples/%.cpp
 	@mkdir -p $(dir $@)
-	$(CXX) $(CXXAR) $(INCAR) $(VERAR) -o$@ $^ $(LDAR) -L$(OUTDIR) -lprogressbar-cpp -lncurses
+	$(CXX) $(CXXAR) $(INCAR) $(VERAR) -o$@ $^ $(LDAR) -L$(OUTDIR) -lprogressbar-cpp -l$(CURSES)
 
 $(OUTDIR)examples/progressbar-%$(EXE) : ext/progressbar/test/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CCAR) $(INCAR) -o$@ $^ -Iext/progressbar/include/progressbar $(LDAR) -L$(OUTDIR) -lprogressbar-cpp -lncurses
+	$(CC) $(CCAR) $(INCAR) -o$@ $^ -Iext/progressbar/include/progressbar $(LDAR) -L$(OUTDIR) -lprogressbar-cpp -l$(CURSES)
