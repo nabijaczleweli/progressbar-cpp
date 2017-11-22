@@ -9,7 +9,7 @@ A C++ wrapper for [an easy-to-use C library for displaying text progress bars](h
 progressbar_cpp::progressbar progress("Loading", 100);
 for(int i = 0; i < 100; ++i) {
   // Do some stuff
-  progressbar.inc();
+  progress.inc();
 }
 // Progress bar is RAIId away. Alternatively, you can call
 progress.finish();
